@@ -1,0 +1,55 @@
+#Wyatt Lowe
+#9/28/23
+#Pet Hotel 2
+
+import dearpygui.dearpygui as dpg
+
+def addPet(sender, app_data, user_data):
+    with dpg.window(label='Congrats', no_collapse=True, pos=(30, 40), modal=True):
+        dpg.add_text('You have pressed the button now,you\nhave successfully added a new pet to the system!', color=(255,255,0))
+
+def addRoom(sender, app_data, user_data):
+    with dpg.window(label='Congrats', no_collapse=True, pos=(30, 40), modal=True):
+        dpg.add_text('You have pressed the button now,you\nhave successfully added a new room to the system!', color=(255,255,0))
+WIDTH = 1000
+HEIGHT = 550
+
+dpg.create_context()
+
+with dpg.window(tag="Primary Window", width=WIDTH, height=HEIGHT):
+
+    with dpg.menu_bar():
+        dpg.add_menu_item(label='Add Pet', callback=addPet)
+        dpg.add_menu_item(label='Add Room', callback=addRoom)
+
+    with dpg.group(horizontal=True):
+        dpg.add_text("Pet Name :")
+        dpg.add_input_text()
+    with dpg.group(horizontal=True):
+        dpg.add_text("House Address :")
+        dpg.add_input_text()
+    with dpg.group(horizontal=True):
+        dpg.add_text("Breed :")
+        dpg.add_input_text()
+
+    with dpg.group(horizontal=True):
+        dpg.add_text("Age :")
+        dpg.add_input_int(min_value=1, min_clamped=True, max_value=30, max_clamped=True, width=100, default_value=1)
+    dpg.add_spacer()
+    with dpg.group(horizontal=True):
+        dpg.add_text("Friendly or Non-Friendly :")
+        dpg.add_radio_button(items=('Friendly', 'Non-Friendly'), default_value='Friendly')
+    with dpg.collapsing_header(label='Select Check-In / Check-Out Dates'):
+        with dpg.group(horizontal=True):
+            dpg.add_text("Check-In Date :")
+            dpg.add_date_picker(default_value={'sec': 0, 'min': 0, 'hour': 0, 'month_day': 24, 'month': 2, 'year': 123, 'week_day': 5, 'year_day': 82, 'daylight_savings': 0})
+        with dpg.group(horizontal=True):
+            dpg.add_text("Check-Out Date :")
+            dpg.add_date_picker(default_value={'sec': 0, 'min': 0, 'hour': 0, 'month_day': 25, 'month': 2, 'year': 123, 'week_day': 5, 'year_day': 82, 'daylight_savings': 0})
+
+dpg.create_viewport(title='PH App', width=WIDTH, height=HEIGHT)
+dpg.setup_dearpygui()
+dpg.show_viewport()
+dpg.set_primary_window("Primary Window", True)
+dpg.start_dearpygui()
+dpg.destroy_context()
